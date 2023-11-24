@@ -1,18 +1,18 @@
 # allocate elastic ip. this eip will be used for the nat-gateway in the public subnet az1 
 resource "aws_eip" "eip1" {
-  vpc = true
+  domain = "vpc"
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-eip1"
+    Name = "${var.environment}-${var.project_name}-eip1"
   }
 }
 
 # allocate elastic ip. this eip will be used for the nat-gateway in the public subnet az2
 resource "aws_eip" "eip2" {
-  vpc = true
+  domain = "vpc"
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-eip2"
+    Name = "${var.environment}-${var.project_name}-eip2"
   }
 }
 
@@ -22,7 +22,7 @@ resource "aws_nat_gateway" "nat_gateway_az1" {
   subnet_id     = aws_subnet.public_subnet_az1.id
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-ng-az1"
+    Name = "${var.environment}-${var.project_name}-ng-az1"
   }
 
   # to ensure proper ordering, it is recommended to add an explicit dependency
@@ -36,7 +36,7 @@ resource "aws_nat_gateway" "nat_gateway_az2" {
   subnet_id     = aws_subnet.public_subnet_az2.id
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-ng-az2"
+    Name = "${var.environment}-${var.project_name}-ng-az2"
   }
 
   # to ensure proper ordering, it is recommended to add an explicit dependency
@@ -54,7 +54,7 @@ resource "aws_route_table" "private_route_table_az1" {
   }
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-private-rt-az1"
+    Name = "${var.environment}-${var.project_name}-private-rt-az1"
   }
 }
 
@@ -80,7 +80,7 @@ resource "aws_route_table" "private_route_table_az2" {
   }
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-private-rt-az2"
+    Name = "${var.environment}-${var.project_name}-private-rt-az2"
   }
 }
 

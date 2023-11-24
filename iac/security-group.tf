@@ -1,6 +1,6 @@
 # create security group for the application load balancer
 resource "aws_security_group" "alb_security_group" {
-  name        = "${var.project_name}-${var.environment}-alb-sg"
+  name        = "${var.environment}-${var.project_name}-alb-sg"
   description = "enable http/https access on port 80/443"
   vpc_id      = aws_vpc.vpc.id
 
@@ -28,13 +28,13 @@ resource "aws_security_group" "alb_security_group" {
   }
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-alb-sg"
+    Name = "${var.environment}-${var.project_name}-alb-sg"
   }
 }
 
 # create security group for the self-hosted ec2 github runner
 resource "aws_security_group" "runner_security_group" {
-  name        = "${var.project_name}-${var.environment}-runner-sg"
+  name        = "${var.environment}-${var.project_name}-runner-sg"
   description = "enable only outbound https access on port 443"
   vpc_id      = aws_vpc.vpc.id
 
@@ -87,13 +87,13 @@ resource "aws_security_group" "runner_security_group" {
   }
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-runner-sg"
+    Name = "${var.environment}-${var.project_name}-runner-sg"
   }
 }
 
 # create security group for the app server
 resource "aws_security_group" "app_server_security_group" {
-  name        = "${var.project_name}-${var.environment}-app-server-sg"
+  name        = "${var.environment}-${var.project_name}-app-server-sg"
   description = "enable http/https access on port 80/443 via alb sg"
   vpc_id      = aws_vpc.vpc.id
 
@@ -121,13 +121,13 @@ resource "aws_security_group" "app_server_security_group" {
   }
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-app-server-sg"
+    Name = "${var.environment}-${var.project_name}-app-server-sg"
   }
 }
 
 # create security group for the database
 resource "aws_security_group" "database_security_group" {
-  name        = "${var.project_name}-${var.environment}-database-sg"
+  name        = "${var.environment}-${var.project_name}-database-sg"
   description = "enable mysql/aurora access on port 3306"
   vpc_id      = aws_vpc.vpc.id
 
@@ -147,6 +147,6 @@ resource "aws_security_group" "database_security_group" {
   }
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-database-sg"
+    Name = "${var.environment}-${var.project_name}-database-sg"
   }
 }

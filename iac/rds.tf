@@ -1,11 +1,11 @@
 # create database subnet group
 resource "aws_db_subnet_group" "database_subnet_group" {
-  name        = "${var.project_name}-${var.environment}-database-subnets"
+  name        = "${var.environment}-${var.project_name}-database-subnets"
   subnet_ids  = [aws_subnet.private_data_subnet_az1.id, aws_subnet.private_data_subnet_az2.id]
   description = "subnets for database instance"
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-database-subnets"
+    Name = "${var.environment}-${var.project_name}-database-subnets"
   }
 }
 

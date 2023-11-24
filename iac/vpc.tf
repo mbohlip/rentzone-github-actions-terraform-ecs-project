@@ -5,7 +5,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-vpc"
+    Name = "${var.environment}-${var.project_name}-vpc"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "internet_gateway" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-igw"
+    Name = "${var.environment}-${var.project_name}-igw"
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_subnet" "public_subnet_az1" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-public-az1"
+    Name = "${var.environment}-${var.project_name}-public-az1"
   }
 }
 
@@ -41,7 +41,7 @@ resource "aws_subnet" "public_subnet_az2" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-public-az2"
+    Name = "${var.environment}-${var.project_name}-public-az2"
   }
 }
 
@@ -55,7 +55,7 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-public-rt"
+    Name = "${var.environment}-${var.project_name}-public-rt"
   }
 }
 
@@ -79,7 +79,7 @@ resource "aws_subnet" "private_app_subnet_az1" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-private-app-az1"
+    Name = "${var.environment}-${var.project_name}-private-app-az1"
   }
 }
 
@@ -91,7 +91,7 @@ resource "aws_subnet" "private_app_subnet_az2" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-private-app-az2"
+    Name = "${var.environment}-${var.project_name}-private-app-az2"
   }
 }
 
@@ -103,7 +103,7 @@ resource "aws_subnet" "private_data_subnet_az1" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-private-data-az1"
+    Name = "${var.environment}-${var.project_name}-private-data-az1"
   }
 }
 
@@ -115,6 +115,6 @@ resource "aws_subnet" "private_data_subnet_az2" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-private-data-az2"
+    Name = "${var.environment}-${var.project_name}-private-data-az2"
   }
 }
