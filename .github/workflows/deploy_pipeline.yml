@@ -357,5 +357,5 @@ jobs:
         with:
           mode: stop
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          label: ${{ needs.Start self-hosted EC2 runner.outputs.label }}
-          ec2-instance-id: ${{ needs.Start self-hosted EC2 runner.outputs.ec2-instance-id }}
+          label: ${{ needs.start_runner.outputs.label }}
+          ec2-instance-id: ${{ needs.start_runner.outputs.ec2-instance-id }}
