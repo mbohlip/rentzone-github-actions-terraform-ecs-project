@@ -1,54 +1,34 @@
 # Use the latest version of the Amazon Linux base image
-FROM amazonlinux:2
+FROM amazonlinux:2023
 
-# Update all installed packages to thier latest versions
-RUN dnf update -y 
-
-# Install the unzip package, which we will use it to extract the web files from the zip folder
-RUN dnf install unzip -y
-
-# Install wget package, which we will use it to download files from the internet 
-RUN dnf install -y wget
-
-# Install Apache
-RUN dnf install -y httpd
-
-# Install PHP and various extensions
-RUN amazon-linux-extras enable php8.2 && \
-  dnf clean metadata && \
-  dnf install -y \
-    php \
-    php-common \
-    php-pear \
-    php-cgi \
-    php-curl \
-    php-mbstring \
-    php-gd \
-    php-mysqlnd \
-    php-gettext \
-    php-json \
-    php-xml \
-    php-fpm \
-    php-intl \
-    php-zip
+# Update all installed packages, install php, Apache, MySql and various extensions
+RUN yum update -y && \
+    yum install unzip - && \
+    yum install -y wget && \
+    yum install -y httpd && \
+    amazon-linux-extras enable php8.2 && \
+    dnf install -y php php-common php-pear php-cgi php-curl php-mbstring php-gd php-mysqlnd \
+    php-gettext php-json php-xml php-fpm php-intl php-zip mysql-community-server && \
+    yum clean all
 
 # Download the MySQL repository package
-RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
+#RUN wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
+#RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
 
 # Import the GPG key for the MySQL repository
-RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+#RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 
 # Install the MySQL repository package
-RUN dnf localinstall mysql80-community-release-el7-3.noarch.rpm -y
+#RUN yum install mysql80-community-release-el9-1.noarch.rpm -y
 
 # Install the MySQL community server package
-RUN dnf install mysql-community-server -y
+#RUN yum install mysql-community-server -y --skip-broken
 
 # Change directory to the html directory
 WORKDIR /var/www/html
 
 # Install Git
-RUN dnf install -y git
+RUN yum install -y git
 
 # Set the build argument directive
 ARG PERSONAL_ACCESS_TOKEN
