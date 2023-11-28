@@ -12,17 +12,17 @@ RUN yum update -y && \
     yum clean all
 
 # Download the MySQL repository package
-RUN wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
+#RUN wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
 #RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
 
 # Import the GPG key for the MySQL repository
 #RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 
 # Install the MySQL repository package
-RUN yum install mysql80-community-release-el9-1.noarch.rpm -y
+#RUN yum install mysql80-community-release-el9-1.noarch.rpm -y
 
 # Install the MySQL community server package
-RUN yum install mysql-community-server -y --skip-broken
+#RUN yum install mysql-community-server -y --skip-broken
 
 # Change directory to the html directory
 WORKDIR /var/www/html
