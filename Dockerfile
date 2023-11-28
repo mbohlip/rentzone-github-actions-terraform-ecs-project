@@ -14,8 +14,7 @@ RUN dnf install -y wget
 RUN dnf install -y httpd
 
 # Install PHP and various extensions
-RUN dnf clean metadata && \
-  dnf install -y \
+RUN dnf install -y \
     php \
     php-common \
     php-pear \
