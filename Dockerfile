@@ -41,7 +41,7 @@ RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 RUN dnf localinstall mysql80-community-release-el7-3.noarch.rpm -y
 
 # Install the MySQL community server package
-RUN dnf install mysql-community-server -y
+RUN dnf install mysql-community-server -y --skip-broken
 
 # Change directory to the html directory
 WORKDIR /var/www/html
