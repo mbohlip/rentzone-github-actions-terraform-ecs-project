@@ -25,6 +25,7 @@ RUN yum update -y && \
     mysql-community-server && \
     yum clean all
 
+
 # Download the MySQL repository package
 #RUN wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm
 #RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
