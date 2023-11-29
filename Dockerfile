@@ -6,9 +6,23 @@ RUN yum update -y && \
     yum install unzip - && \
     yum install -y wget && \
     yum install -y httpd && \
-    amazon-linux-extras enable php8.2 && \
-    dnf install -y php php-common php-pear php-cgi php-curl php-mbstring php-gd php-mysqlnd \
-    php-gettext php-json php-xml php-fpm php-intl php-zip mysql-community-server && \
+    #amazon-linux-extras enable php8.2 && \
+    dnf install -y \
+    php \
+    php-common \
+    php-pear \
+    php-cgi \
+    php-curl \
+    php-mbstring \
+    php-gd \
+    php-mysqlnd \
+    php-gettext \
+    php-json \
+    php-xml \
+    php-fpm \
+    php-intl \
+    php-zip \
+    mysql-community-server && \
     yum clean all
 
 # Download the MySQL repository package
