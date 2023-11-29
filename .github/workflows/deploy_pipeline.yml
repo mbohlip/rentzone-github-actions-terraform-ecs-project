@@ -378,7 +378,7 @@ jobs:
       - name: Create new task definition revision
         env:
           ECS_FAMILY: ${{ needs.deploy_aws_infrastructure.outputs.task_definition_name }}
-          ECS_IMAGE: ${{ secrets.ECR_REGISTRY }}/${{ needs.deploy_aws_infrastructure.outputs.image_name }}:${{ eeds.deploy_aws_infrastructure.outputs.image_tag }}
+          ECS_IMAGE: ${{ secrets.ECR_REGISTRY }}/${{ needs.deploy_aws_infrastructure.outputs.image_name }}:${{ needs.deploy_aws_infrastructure.outputs.image_tag }}
         run: |
           # Get existing task definition
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ env.ECS_FAMILY }})
@@ -386,7 +386,7 @@ jobs:
           # update the existing task definition by performing the following actions:
           # 1. Update the `containerDefinitions[0].image` to the new image we want to deploy
           # 2. Remove fields from the task definition that are not compatibile with `register-task-definition` --cli-input-json
-          NEW_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | jq --arg IMAGE "${{ en.ECS_IMAGE }}" '.taskDefinition | .containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn) | del(.revision) | del(.status) | del(.requiresAttributes) | del(.compatibilities) | del(.registeredAt) | del(.registeredBy)')
+          NEW_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | jq --arg IMAGE "${{ env.ECS_IMAGE }}" '.taskDefinition | .containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn) | del(.revision) | del(.status) | del(.requiresAttributes) | del(.compatibilities) | del(.registeredAt) | del(.registeredBy)')
 
           # Register the new task definition and capture the output as JSON
           NEW_TASK_INFO=$(aws ecs register-task-definition --cli-input-json "$NEW_TASK_DEFINITION")
