@@ -2,21 +2,21 @@
 FROM amazonlinux:2
 
 # Update all installed packages to thier latest versions
-RUN dnf update -y 
+RUN yum update -y 
 
 # Install the unzip package, which we will use it to extract the web files from the zip folder
-RUN dnf install unzip -y
+RUN yum install unzip -y
 
 # Install wget package, which we will use it to download files from the internet 
-RUN dnf install -y wget
+RUN yum install -y wget
 
 # Install Apache
-RUN dnf install -y httpd
+RUN yum install -y httpd
 
 # Install PHP and various extensions
 RUN amazon-linux-extras enable php8.2 && \
-  dnf clean metadata && \
-  dnf install -y \
+  yum clean metadata && \
+  yum install -y \
     php \
     php-common \
     php-pear \
@@ -39,16 +39,16 @@ RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
 RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 
 # Install the MySQL repository package
-RUN dnf localinstall mysql80-community-release-el7-3.noarch.rpm -y
+RUN yum localinstall mysql80-community-release-el7-3.noarch.rpm -y
 
 # Install the MySQL community server package
-RUN dnf install mysql-community-server -y
+RUN yum install mysql-community-server -y
 
 # Change directory to the html directory
 WORKDIR /var/www/html
 
 # Install Git
-RUN dnf install -y git
+RUN yum install -y git
 
 # Set the build argument directive
 ARG PERSONAL_ACCESS_TOKEN
