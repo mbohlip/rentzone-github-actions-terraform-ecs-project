@@ -18,20 +18,22 @@ RUN amazon-linux-extras enable php8.0 && \
   yum clean metadata && \
   yum install -y \
     php \
-    php-common \
-    php-pear \
-    php-cgi \
-    php-curl \
-    php-mbstring \
-    php-gd \
-    php-mysqlnd \
-    php-gettext \
-    php-json \
-    php-xml \
     php-fpm \
-    php-intl \
-    php-zip
-
+    php-mysqli \
+    php-json \
+    php-curl \
+    php-bcmath \
+    php-ctype \
+    php-fileinfo \
+    php-mbstring \
+    php-openssl \
+    php-pdo \
+    php-gd \
+    php-tokenizer \
+    php-xml \
+    php-curl \
+    git && \
+  yum clean all
 
 # Download the MySQL repository package
 RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
@@ -86,6 +88,10 @@ RUN cp -av ${REPOSITORY_NAME}/${WEB_FILE_UNZIP}/. /var/www/html
 
 # Remove the repository we cloned
 RUN rm -rf ${REPOSITORY_NAME}
+
+# Update the settings, memory_limit to 128M and max_execution_time to 300 in the php.ini
+RUN sed -i 's/^\s*;\?\s*memory_limit=.*/memory_limit = 128M/' /etc/php.ini
+RUN sed -i 's/^\s*;\?\s*max_execution_time =.*/max_execution_time = 300/' /etc/php.ini
 
 # Enable the mod_rewrite setting in the httpd.conf file
 RUN sed -i '/<Directory "\/var\/www\/html">/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/httpd/conf/httpd.conf
