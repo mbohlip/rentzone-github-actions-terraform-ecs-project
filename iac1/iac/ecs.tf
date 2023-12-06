@@ -49,6 +49,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
         {
           value = "arn:aws:s3:::${var.project_name}-${var.env_file_bucket_name}/${var.env_file_name}"
           type  = "s3"
+          # arn:aws:s3:::rentzone-mpn-rentzone-env-file-bucket/env-variables-file.env
         }
       ]
 
