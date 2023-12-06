@@ -120,3 +120,9 @@ variable "record_name" {
   description = "sub domain name"
   type        = string
 }
+
+# alb variables
+variable "ssl_certificate_arn" {
+  description = "ssl_certificate_arn"
+  type        = string
+}
