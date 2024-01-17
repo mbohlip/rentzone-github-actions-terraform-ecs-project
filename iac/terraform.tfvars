@@ -37,5 +37,5 @@ image_tag    = "latest"
 # route-53 variables
 record_name = "www"
 
-# alb variables
-ssl_certificate_arn = "arn:aws:acm:us-east-1:821363534163:certificate/2ee1cea5-f503-4ba5-bb9b-a099310f1a8d"
+# # alb variables
+# ssl_certificate_arn = "arn:aws:acm:us-east-1:821363534163:certificate/2ee1cea5-f503-4ba5-bb9b-a099310f1a8d"

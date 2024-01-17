@@ -121,8 +121,8 @@ variable "record_name" {
   type        = string
 }
 
-# alb variables
-variable "ssl_certificate_arn" {
-  description = "ssl_certificate_arn"
-  type        = string
-}
+# # alb variables
+# variable "ssl_certificate_arn" {
+#   description = "ssl_certificate_arn"
+#   type        = string
+# }
