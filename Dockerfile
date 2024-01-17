@@ -14,8 +14,8 @@ RUN yum install -y wget
 RUN yum install -y httpd
 
 # Install PHP and various extensions
-RUN amazon-linux-extras enable php7.4 && \
-  yum clean metadata && \
+# RUN amazon-linux-extras enable php7.4 && \
+  RUN yum clean metadata && \
   yum install -y \
     php \
     php-fpm \
