@@ -1,5 +1,5 @@
 # Use the latest version of the Amazon Linux base image
-FROM amazonlinux:latest
+FROM amazonlinux:2
 
 # Update all installed packages to thier latest versions
 RUN yum update -y 
@@ -14,8 +14,8 @@ RUN yum install -y wget
 RUN yum install -y httpd
 
 # Install PHP and various extensions
-# RUN amazon-linux-extras enable php7.4 && \
-  RUN yum clean metadata && \
+RUN amazon-linux-extras enable php7.4 && \
+  yum clean metadata && \
   yum install -y \
     php \
     php-fpm \
@@ -45,8 +45,7 @@ RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 RUN yum localinstall mysql80-community-release-el7-3.noarch.rpm -y
 
 # Install the MySQL community server package
-# RUN yum install mysql-community-server -y
-RUN yum install mysql-server -y
+RUN yum install mysql-community-server -y
 
 # Change directory to the html directory
 WORKDIR /var/www/html
