@@ -18,29 +18,26 @@ RUN amazon-linux-extras enable php8.0 && \
   yum clean metadata && \
   yum install -y \
     php \
-    php-fpm \
-    php-mysqli \
-    php-json \
+    php-common \
+    php-pear \
+    php-cgi \
     php-curl \
-    php-bcmath \
-    php-ctype \
-    php-fileinfo \
     php-mbstring \
-    php-openssl \
-    php-pdo \
     php-gd \
-    php-tokenizer \
+    php-mysqlnd \
+    php-gettext \
+    php-json \
     php-xml \
-    php-curl \
-    git && \
-  yum clean all
+    php-fpm \
+    php-intl \
+    php-zip
 
 # Download the MySQL repository package
 # RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
 RUN yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
 
 # Import the GPG key for the MySQL repository
-RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
 
 # Install the MySQL repository package
 # RUN yum localinstall mysql80-community-release-el7-3.noarch.rpm -y
@@ -79,10 +76,6 @@ ENV RDS_ENDPOINT=$RDS_ENDPOINT
 ENV RDS_DB_NAME=$RDS_DB_NAME
 ENV RDS_DB_USERNAME=$RDS_DB_USERNAME
 ENV RDS_DB_PASSWORD=$RDS_DB_PASSWORD
-
-# Clean up all the unused images
-# RUN docker system df
-# RUN docker system prune -a
 
 # Clone the GitHub repository
 RUN git clone https://${PERSONAL_ACCESS_TOKEN}@github.com/${GITHUB_USERNAME}/${REPOSITORY_NAME}.git
