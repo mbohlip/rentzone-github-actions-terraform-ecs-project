@@ -233,7 +233,7 @@ jobs:
 
       - name: Prune all images & Containers
         run: |
-          docker system df && docker system prune -a -y
+          docker system df && docker system prune -a
 
       - name: Build Docker image
         env:
