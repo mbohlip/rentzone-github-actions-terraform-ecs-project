@@ -8,7 +8,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: us-east-1
-  TERRAFORM_ACTION: destroy
+  TERRAFORM_ACTION: apply
   GITHUB_USERNAME: mbohlip
   REPOSITORY_NAME: rentzone-app-codes
   WEB_FILE_ZIP: rentzone.zip
@@ -230,6 +230,10 @@ jobs:
 
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Prune all images & Containers
+        run: |
+          docker system df && docker system prune -a -y
 
       - name: Build Docker image
         env:

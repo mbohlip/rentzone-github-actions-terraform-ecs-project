@@ -80,6 +80,10 @@ ENV RDS_DB_NAME=$RDS_DB_NAME
 ENV RDS_DB_USERNAME=$RDS_DB_USERNAME
 ENV RDS_DB_PASSWORD=$RDS_DB_PASSWORD
 
+# Clean up all the unused images
+# RUN docker system df
+# RUN docker system prune -a
+
 # Clone the GitHub repository
 RUN git clone https://${PERSONAL_ACCESS_TOKEN}@github.com/${GITHUB_USERNAME}/${REPOSITORY_NAME}.git
 
