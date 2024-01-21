@@ -155,7 +155,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v3
 
       - name: Check if ECR repository exists
         env:
@@ -226,10 +226,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout repository 
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v3
 
       - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2.0.1
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build Docker image
         env:
@@ -310,7 +310,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v3
 
       - name: Download Flyway
         run: |
