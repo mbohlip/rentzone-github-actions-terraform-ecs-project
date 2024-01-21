@@ -8,7 +8,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: us-east-1
-  TERRAFORM_ACTION: destroy
+  TERRAFORM_ACTION: apply
   GITHUB_USERNAME: mbohlip
   REPOSITORY_NAME: rentzone-app-codes
   WEB_FILE_ZIP: rentzone.zip
@@ -155,7 +155,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.0
 
       - name: Check if ECR repository exists
         env:
@@ -226,10 +226,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout repository 
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.0
 
       - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2.0.1
 
       - name: Build Docker image
         env:
@@ -310,7 +310,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.0
 
       - name: Download Flyway
         run: |
