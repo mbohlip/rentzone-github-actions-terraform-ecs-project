@@ -34,18 +34,18 @@ output "runner_security_group_id" {
 ### outputs needed to create a new revision for the ecs task definition
 # task definition name
 output "task_definition_name" {
-  value = "${var.environment}-${var.project_name}-td"
+  value = "${var.project_name}-${var.environment}-td"
 }
 
 ### outputs needed to restart the ecs service
 # ecs cluster name
 output "ecs_cluster_name" {
-  value = "${var.environment}-${var.project_name}-cluster"
+  value = "${var.project_name}-${var.environment}-cluster"
 }
 
 # ecs service name
 output "ecs_service_name" {
-  value = "${var.environment}-${var.project_name}-service"
+  value = "${var.project_name}-${var.environment}-service"
 }
 
 ### outputs needed to build environment file
