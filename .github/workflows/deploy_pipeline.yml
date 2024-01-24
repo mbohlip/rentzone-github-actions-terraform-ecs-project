@@ -8,7 +8,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: us-east-1
-  TERRAFORM_ACTION: destroy
+  TERRAFORM_ACTION: apply
   GITHUB_USERNAME: mbohlip
   REPOSITORY_NAME: rentzone-app-codes
   WEB_FILE_ZIP: rentzone.zip
@@ -332,10 +332,11 @@ jobs:
           FLYWAY_LOCATION: filesystem:sql
         working-directory: ./flyway-${{ env.FLYWAY_VERSION }}
         run: |
-          flyway -url=${{ env.FLYWAY_URL }} \
+          ./flyway -url=${{ env.FLYWAY_URL }} \
             -user=${{ env.FLYWAY_USER }} \
             -password=${{ env.FLYWAY_PASSWORD }} \
-            -locations=${{ env.FLYWAY_LOCATION }} migrate
+            -locations=${{ env.FLYWAY_LOCATION }} \
+            migrate
 
 
   # Stop the self-hosted EC2 runner
