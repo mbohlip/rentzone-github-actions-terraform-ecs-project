@@ -8,7 +8,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: us-east-1
-  TERRAFORM_ACTION: destroy
+  TERRAFORM_ACTION: apply
   GITHUB_USERNAME: mbohlip
   REPOSITORY_NAME: rentzone-app-codes
   WEB_FILE_ZIP: rentzone.zip
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest # => the machine that will run the job
     steps:
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16 # an action already created by someone
+        uses: aws-actions/configure-aws-credentials@v4-node20 # an action already created by someone
         with:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
