@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest # => the machine that will run the job
     steps:
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4-node20 # an action already created by someone
+        uses: aws-actions/configure-aws-credentials@v4 # an action already created by someone
         with:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
