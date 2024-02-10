@@ -14,7 +14,7 @@ RUN yum install -y wget
 RUN yum install -y httpd
 
 # Install PHP and various extensions
-RUN amazon-linux-extras enable php8.1 && \
+RUN amazon-linux-extras enable php7.4 && \
   yum clean metadata && \
   yum install -y \
     php \
@@ -63,7 +63,7 @@ ARG RDS_DB_USERNAME
 ARG RDS_DB_PASSWORD
 
 # Use the build argument to set environment variables 
-ENV PERSONAL_ACCESS_TOKEN=$PERSONAL_ACCESS_TOKEN 
+ENV PERSONAL_ACCESS_TOKEN=$PERSONAL_ACCESS_TOKEN
 ENV GITHUB_USERNAME=$GITHUB_USERNAME
 ENV REPOSITORY_NAME=$REPOSITORY_NAME
 ENV WEB_FILE_ZIP=$WEB_FILE_ZIP
@@ -86,10 +86,6 @@ RUN cp -av $REPOSITORY_NAME/$WEB_FILE_UNZIP/. /var/www/html
 # Remove the repository we cloned
 RUN rm -rf $REPOSITORY_NAME
 
-# Update the settings, memory_limit to 128M and max_execution_time to 300 in the php.ini
-RUN sed -i 's/^\s*;\?\s*memory_limit=.*/memory_limit = 128M/' /etc/php.ini
-RUN sed -i 's/^\s*;\?\s*max_execution_time =.*/max_execution_time = 300/' /etc/php.ini
-
 # Enable the mod_rewrite setting in the httpd.conf file
 RUN sed -i '/<Directory "\/var\/www\/html">/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/httpd/conf/httpd.conf
 
@@ -103,22 +99,19 @@ RUN chmod -R 777 storage/
 RUN sed -i '/^APP_ENV=/ s/=.*$/=production/' .env
 
 # Use the sed command to search the .env file for a line that starts with APP_URL= and replace everything after the = character
-RUN sed -i "/^APP_URL=/ s/=.*$/=https:\/\/${DOMAIN_NAME}\//" .env
+RUN sed -i "/^APP_URL=/ s/=.*$/=https:\/\/$DOMAIN_NAME\//" .env
 
 # Use the sed command to search the .env file for a line that starts with DB_HOST= and replace everything after the = character
-RUN sed -i "/^DB_HOST=/ s/=.*$/=${RDS_ENDPOINT}/" .env
+RUN sed -i "/^DB_HOST=/ s/=.*$/=$RDS_ENDPOINT/" .env
 
 # Use the sed command to search the .env file for a line that starts with DB_DATABASE= and replace everything after the = character
-RUN sed -i "/^DB_DATABASE=/ s/=.*$/=${RDS_DB_NAME}/" .env
+RUN sed -i "/^DB_DATABASE=/ s/=.*$/=$RDS_DB_NAME/" .env 
 
 # Use the sed command to search the .env file for a line that starts with DB_USERNAME= and replace everything after the = character
-RUN  sed -i "/^DB_USERNAME=/ s/=.*$/=${RDS_DB_USERNAME}/" .env
+RUN  sed -i "/^DB_USERNAME=/ s/=.*$/=$RDS_DB_USERNAME/" .env
 
 # Use the sed command to search the .env file for a line that starts with DB_PASSWORD= and replace everything after the = character
-RUN  sed -i "/^DB_PASSWORD=/ s/=.*$/=${RDS_DB_PASSWORD}/" .env
-
-# Print the .env file to review values
-RUN cat .env
+RUN  sed -i "/^DB_PASSWORD=/ s/=.*$/=$RDS_DB_PASSWORD/" .env
 
 # Copy the file, AppServiceProvider.php from the host file system into the container at the path app/Providers/AppServiceProvider.php
 COPY AppServiceProvider.php app/Providers/AppServiceProvider.php
