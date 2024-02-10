@@ -33,19 +33,16 @@ RUN amazon-linux-extras enable php8.1 && \
     php-zip
 
 # Download the MySQL repository package
-# RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
-RUN yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+RUN wget https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
 
 # Import the GPG key for the MySQL repository
 RUN rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
 
 # Install the MySQL repository package
-# RUN yum localinstall mysql80-community-release-el7-3.noarch.rpm -y
-RUN yum install -y mysql-community-client --nogpgcheck
+RUN yum localinstall mysql80-community-release-el7-3.noarch.rpm -y
 
 # Install the MySQL community server package
-# RUN yum install mysql-community-server -y
-RUN yum install mysql-community-server -y --nogpgcheck
+RUN yum install mysql-community-server -y
 
 # Change directory to the html directory
 WORKDIR /var/www/html
@@ -78,16 +75,16 @@ ENV RDS_DB_USERNAME=$RDS_DB_USERNAME
 ENV RDS_DB_PASSWORD=$RDS_DB_PASSWORD
 
 # Clone the GitHub repository
-RUN git clone https://${PERSONAL_ACCESS_TOKEN}@github.com/${GITHUB_USERNAME}/${REPOSITORY_NAME}.git
+RUN git clone https://$PERSONAL_ACCESS_TOKEN@github.com/$GITHUB_USERNAME/$REPOSITORY_NAME.git
 
 # Unzip the zip folder containing the web files
-RUN unzip ${REPOSITORY_NAME}/${WEB_FILE_ZIP} -d ${REPOSITORY_NAME}/
+RUN unzip $REPOSITORY_NAME/$WEB_FILE_ZIP -d $REPOSITORY_NAME/
 
 # Copy the web files into the HTML directory
-RUN cp -av ${REPOSITORY_NAME}/${WEB_FILE_UNZIP}/. /var/www/html
+RUN cp -av $REPOSITORY_NAME/$WEB_FILE_UNZIP/. /var/www/html
 
 # Remove the repository we cloned
-RUN rm -rf ${REPOSITORY_NAME}
+RUN rm -rf $REPOSITORY_NAME
 
 # Update the settings, memory_limit to 128M and max_execution_time to 300 in the php.ini
 RUN sed -i 's/^\s*;\?\s*memory_limit=.*/memory_limit = 128M/' /etc/php.ini
